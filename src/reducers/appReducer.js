@@ -1,6 +1,6 @@
 // ====================================================
 // IMPORTS
-import { getPopular } from './dataReducer'
+import { getLatest } from './dataReducer'
 
 // ====================================================
 // Types
@@ -12,6 +12,7 @@ const SET_INITIALIZED = 'SET_INITIALIZED'
 
 let initialState = {
 	initialized: false,
+	baseCurrency: 'USD',
 }
 
 // ====================================================
@@ -44,23 +45,12 @@ export const initializeSuccess = payload => ({
 export const initializeApp = () => {
 	return async dispatch => {
 		new Promise((resolve, reject) => {
-			dispatch(getPopular('movie', 1, false, resolve))
+			resolve(dispatch(getLatest('USD')))
+		}).then(() => {
+			return new Promise((resolve, reject) => {
+				resolve(dispatch(initializeSuccess()))
+			})
 		})
-			.then(() => {
-				return new Promise((resolve, reject) => {
-					dispatch(getPopular('tv', 1, false, resolve))
-				})
-			})
-			.then(() => {
-				return new Promise((resolve, reject) => {
-					dispatch(getPopular('person', 1, false, resolve))
-				})
-			})
-			.then(() => {
-				return new Promise((resolve, reject) => {
-					resolve(dispatch(initializeSuccess()))
-				})
-			})
 	}
 }
 

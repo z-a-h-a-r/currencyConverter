@@ -6,17 +6,22 @@ import axios from 'axios'
 // Instance
 
 const api = {
-	key: '489200d72d725e40d31af3e858e3f8f9',
-	base: 'https://api.themoviedb.org/3',
+	key: '382d555418b3e5f66981fc03',
+	base: 'https://v6.exchangerate-api.com/v6',
 }
 
 // ====================================================
 // Requests
 
 export const API = {
-	// getPopular: (type = '', page) => {
-	// 	return axios
-	// 		.get(`${api.base}/${type}/popular?page=${page}&api_key=${api.key}`)
-	// 		.then(result => result.data)
-	// },
+	getLatest: baseCurrency => {
+		return axios
+			.get(`${api.base}/${api.key}/latest/${baseCurrency}`)
+			.then(result => result.data)
+	},
+	convertCurrency: (from, to) => {
+		return axios
+			.get(`${api.base}/${api.key}/pair/${from}/${to}`)
+			.then(result => result.data)
+	},
 }

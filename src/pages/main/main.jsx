@@ -2,8 +2,7 @@
 // IMPORTS
 import styles from './main.module.scss'
 import React from 'react'
-import NoSearchData from '../../components/noSearchData/noSearchData'
-import Card from './card/card'
+import CurrencyList from '../../components/currencyList/currencyList'
 
 // ====================================================
 // Component
@@ -12,7 +11,11 @@ const Main = props => {
 	// ====================================================
 	// JSX
 
-	return main
+	return (
+		<section className={styles.body}>
+			<CurrencyList />
+		</section>
+	)
 }
 
 // ====================================================
