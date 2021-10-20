@@ -1,0 +1,26 @@
+.body {
+	background: rgb(179, 179, 179);
+	width: 80%;
+	height: 60px;
+	position: fixed;
+	left: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 6px;
+	animation-name: alert;
+	animation-duration: 0.8s;
+	z-index: 999;
+	top: 50px;
+	color: rgb(48, 48, 48);
+	font-weight: 600;
+}
+
+@keyframes alert {
+	0% {
+		top: 0px;
+	}
+	100% {
+		top: 50px;
+	}
+}

@@ -1,10 +1,12 @@
 // ====================================================
 // IMPORTS
 import styles from './currencyList.module.scss'
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Formik } from 'formik'
 import search from '../../images/search.svg'
+import { setSearchResult } from '../../reducers/dataReducer'
+import Alert from '../alert/alert'
 
 // ====================================================
 // Component
@@ -13,23 +15,23 @@ const CurrencyList = props => {
 	// ====================================================
 	// variables
 
-	let [currencyList, setCurrencyList] = useState([])
-	let [sortableList, setSortableList] = useState([])
+	const dispatch = useDispatch()
+	const [isNotFound, setIsNotFound] = useState(false)
 
 	// ====================================================
 	// State
 
 	const latest = useSelector(state => state.data.latest.conversion_rates)
+	const searchResult = useSelector(state => state.data.searchResult)
 	const baseCurrency = useSelector(state => state.app.baseCurrency)
 
 	// ====================================================
-	// Side effects
+	// Logic
 
-	for (let currency in latest) {
-		currencyList.push({
-			name: currency,
-			currency: latest[currency],
-		})
+	if (isNotFound) {
+		setTimeout(() => {
+			setIsNotFound(false)
+		}, 3000)
 	}
 
 	// ====================================================
@@ -37,6 +39,7 @@ const CurrencyList = props => {
 
 	return (
 		<>
+			{isNotFound && <Alert content={'currency not found'} />}
 			<Formik
 				initialValues={{ query: '' }}
 				validate={values => {
@@ -44,17 +47,21 @@ const CurrencyList = props => {
 					return errors
 				}}
 				onSubmit={(values, { setSubmitting }) => {
-					let arr = []
+					let suitableElements = []
 
-					currencyList.map((item, index) => {
-						if (item.name.includes(values.query.toUpperCase())) {
-							arr.push(item)
-							// console.log(index)
-							if (index === currencyList.length) {
-								console.log('111')
-							}
+					Object.keys(latest).forEach(item => {
+						if (
+							values.query.length !== 0 &&
+							item.includes(values.query.toUpperCase())
+						) {
+							suitableElements.push({ name: item, currency: latest[item] })
 						}
 					})
+
+					if (values.query.length !== 0 && suitableElements.length === 0) {
+						setIsNotFound(true)
+					}
+					dispatch(setSearchResult(suitableElements))
 					setSubmitting(false)
 				}}
 			>
@@ -82,7 +89,7 @@ const CurrencyList = props => {
 							/>
 
 							<button
-								disabled={isSubmitting}
+								disabled={isSubmitting || isNotFound}
 								className={styles.button}
 								type="submit"
 								className={styles.button}
@@ -93,32 +100,46 @@ const CurrencyList = props => {
 					</>
 				)}
 			</Formik>
+
 			<div className={styles.list}>
-				{sortableList.length !== 0 ? (
+				{searchResult.length !== 0 ? (
 					<>
-						{sortableList.map(item => (
+						{searchResult.map(item => (
 							<div key={item.name} className={styles.card}>
 								<span>{item.name}</span>
 								<div>
-									{item.currency}{' '}
-									<span className={styles.baseCurrency}>{baseCurrency}</span>
+									1<span className={styles.currency}>{baseCurrency}</span>{' '}
+									{' = '}
+									{item.currency}
+									<span className={styles.currency}>{item.name}</span>
 								</div>
 							</div>
-						))}{' '}
-						<button>clear</button>
+						))}
 					</>
 				) : (
-					currencyList.map(item => (
-						<div key={item.name} className={styles.card}>
-							<span>{item.name}</span>
+					Object.keys(latest).map(item => (
+						<div key={item} className={styles.card}>
+							<span>{item}</span>
 							<div>
-								{item.currency}{' '}
-								<span className={styles.baseCurrency}>{baseCurrency}</span>
+								1<span className={styles.currency}>{baseCurrency}</span> {' = '}
+								{latest[item]}
+								<span className={styles.currency}>{item}</span>
 							</div>
 						</div>
 					))
 				)}
 			</div>
+
+			{searchResult.length !== 0 && (
+				<button
+					className={styles.allCurrency}
+					onClick={() => {
+						dispatch(setSearchResult([]))
+					}}
+				>
+					all currency
+				</button>
+			)}
 		</>
 	)
 }
