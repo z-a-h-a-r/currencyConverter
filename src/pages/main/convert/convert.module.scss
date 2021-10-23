@@ -1,0 +1,16 @@
+.cardsWrap {
+	display: grid;
+	justify-content: space-between;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 20px;
+	.card {
+		height: 20vh;
+		background: #161616;
+		border-radius: 6px;
+	}
+	.input {
+		background: #222222;
+		padding: 6px 3px;
+		border-radius: 6px;
+	}
+}

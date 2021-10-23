@@ -1,11 +1,12 @@
 // ====================================================
 // IMPORTS
-import { getLatest } from './dataReducer'
+import { getCodes, getLatest } from './dataReducer'
 
 // ====================================================
 // Types
 
 const SET_INITIALIZED = 'SET_INITIALIZED'
+const SET_BASE_CURRENCY = 'SET_BASE_CURRENCY'
 
 // ====================================================
 // Initial state
@@ -26,6 +27,12 @@ const appReducer = (state = initialState, action) => {
 				initialized: true,
 			}
 
+		case SET_BASE_CURRENCY:
+			return {
+				...state,
+				baseCurrency: action.payload,
+			}
+
 		default:
 			return state
 	}
@@ -38,6 +45,10 @@ export const initializeSuccess = payload => ({
 	type: SET_INITIALIZED,
 	payload,
 })
+export const setBaseCurrency = payload => ({
+	type: SET_BASE_CURRENCY,
+	payload,
+})
 
 // ====================================================
 // Thunks
@@ -46,11 +57,17 @@ export const initializeApp = () => {
 	return async dispatch => {
 		new Promise((resolve, reject) => {
 			resolve(dispatch(getLatest('USD')))
-		}).then(() => {
-			return new Promise((resolve, reject) => {
-				resolve(dispatch(initializeSuccess()))
-			})
 		})
+			.then(() => {
+				return new Promise((resolve, reject) => {
+					resolve(dispatch(getCodes()))
+				})
+			})
+			.then(() => {
+				return new Promise((resolve, reject) => {
+					resolve(dispatch(initializeSuccess()))
+				})
+			})
 	}
 }
 

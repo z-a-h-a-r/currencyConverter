@@ -101,6 +101,7 @@ const CurrencyList = props => {
 				)}
 			</Formik>
 
+			<span className={styles.s}>1 {baseCurrency} =</span>
 			<div className={styles.list}>
 				{searchResult.length !== 0 ? (
 					<>
@@ -121,8 +122,7 @@ const CurrencyList = props => {
 						<div key={item} className={styles.card}>
 							<span>{item}</span>
 							<div>
-								1<span className={styles.currency}>{baseCurrency}</span> {' = '}
-								{latest[item]}
+								{latest[item].toFixed(4)}
 								<span className={styles.currency}>{item}</span>
 							</div>
 						</div>
