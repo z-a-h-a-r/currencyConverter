@@ -19,11 +19,13 @@ export const API = {
 			.get(`${api.base}/${api.key}/latest/${baseCurrency}`)
 			.then(result => result.data)
 	},
+
 	getCodes: () => {
 		return axios
 			.get(`${api.base}/${api.key}/codes`)
 			.then(result => result.data.supported_codes)
 	},
+
 	convertCurrency: (from, to) => {
 		return axios
 			.get(`${api.base}/${api.key}/pair/${from}/${to}`)

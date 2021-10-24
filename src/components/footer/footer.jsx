@@ -15,9 +15,9 @@ const Footer = () => {
 					<div className={[styles.techInfo, styles.column].join('')}>
 						<p>Main</p>
 						<ul>
-							{/* <li>
+							<li>
 								<a
-									href="https://github.com/z-a-h-a-r/moviesInfo"
+									href="https://github.com/z-a-h-a-r/currencyConverter"
 									className="link"
 									target="_blank"
 								>
@@ -32,27 +32,27 @@ const Footer = () => {
 								>
 									My GitHub
 								</a>
-							</li> */}
+							</li>
 						</ul>
 					</div>
 					<div className={[styles.apis, styles.column].join('')}>
 						<p>API</p>
 						<ul>
-							{/* <li>
+							<li>
 								<a
-									href="https://www.themoviedb.org/settings/api"
+									href="https://www.exchangerate-api.com/"
 									className="link"
 									target="_blank"
 								>
-									theMovieDb API
+									exchangerate API
 								</a>
-							</li> */}
+							</li>
 						</ul>
 					</div>
 					<div className={[styles.contacs, styles.column].join('')}>
 						<p>Contacs</p>
 						<ul>
-							{/* <li>usfuld@gmail.com</li>
+							<li>usfuld@gmail.com</li>
 							<li>
 								<a
 									target="_blank"
@@ -61,7 +61,7 @@ const Footer = () => {
 								>
 									telegram
 								</a>
-							</li> */}
+							</li>
 						</ul>
 					</div>
 				</div>

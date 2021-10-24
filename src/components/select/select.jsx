@@ -8,11 +8,15 @@ import { useSelector } from 'react-redux'
 // Component
 
 const Select = props => {
-	// variables
+	// ====================================================
+	// Variables
 	let [isListVisible, setIsListVisible] = useState(false)
-	const baseCurrency = useSelector(state => state.app.baseCurrency)
-	// state
+
+	// ====================================================
+	// State
 	const codes = useSelector(state => state.data.codes)
+
+	// ====================================================
 	// JSX
 	return (
 		<div className={styles.body}>

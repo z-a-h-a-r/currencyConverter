@@ -3,17 +3,16 @@
 import styles from './currencyList.module.scss'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Formik } from 'formik'
-import search from '../../images/search.svg'
 import { setSearchResult } from '../../reducers/dataReducer'
 import Alert from '../alert/alert'
+import Search from '../search/search'
 
 // ====================================================
 // Component
 
 const CurrencyList = props => {
 	// ====================================================
-	// variables
+	// Variables
 
 	const dispatch = useDispatch()
 	const [isNotFound, setIsNotFound] = useState(false)
@@ -40,13 +39,9 @@ const CurrencyList = props => {
 	return (
 		<>
 			{isNotFound && <Alert content={'currency not found'} />}
-			<Formik
-				initialValues={{ query: '' }}
-				validate={values => {
-					const errors = {}
-					return errors
-				}}
-				onSubmit={(values, { setSubmitting }) => {
+			<Search
+				isNotFound={isNotFound}
+				callback={values => {
 					let suitableElements = []
 
 					Object.keys(latest).forEach(item => {
@@ -62,49 +57,14 @@ const CurrencyList = props => {
 						setIsNotFound(true)
 					}
 					dispatch(setSearchResult(suitableElements))
-					setSubmitting(false)
 				}}
-			>
-				{({
-					values,
-					errors,
-					touched,
-					handleChange,
-					handleBlur,
-					handleSubmit,
-					isSubmitting,
-				}) => (
-					<>
-						<form onSubmit={handleSubmit} className={styles.form}>
-							<input
-								className={styles.input}
-								type="text"
-								name="query"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.email}
-								placeholder={`Search currency`}
-								className={styles.input}
-								autocomplete="off"
-							/>
-
-							<button
-								disabled={isSubmitting || isNotFound}
-								className={styles.button}
-								type="submit"
-								className={styles.button}
-							>
-								<img src={search} alt="" />
-							</button>
-						</form>
-					</>
-				)}
-			</Formik>
+			/>
 
 			<div className={styles.baseCurrency}>1 {baseCurrency} =</div>
-			<div className={styles.list}>
-				{searchResult.length !== 0 ? (
-					<>
+
+			{searchResult.length !== 0 ? (
+				<>
+					<div className={styles.list}>
 						{searchResult.map(item => (
 							<div key={item.name} className={styles.card}>
 								<span>{item.name}</span>
@@ -116,9 +76,20 @@ const CurrencyList = props => {
 								</div>
 							</div>
 						))}
-					</>
-				) : (
-					Object.keys(latest).map(item => (
+					</div>
+
+					<button
+						className={styles.allCurrency}
+						onClick={() => {
+							dispatch(setSearchResult([]))
+						}}
+					>
+						all currency
+					</button>
+				</>
+			) : (
+				<div className={styles.list}>
+					{Object.keys(latest).map(item => (
 						<div key={item} className={styles.card}>
 							<span>{item}</span>
 							<div>
@@ -126,19 +97,8 @@ const CurrencyList = props => {
 								<span className={styles.currency}>{item}</span>
 							</div>
 						</div>
-					))
-				)}
-			</div>
-
-			{searchResult.length !== 0 && (
-				<button
-					className={styles.allCurrency}
-					onClick={() => {
-						dispatch(setSearchResult([]))
-					}}
-				>
-					all currency
-				</button>
+					))}
+				</div>
 			)}
 		</>
 	)

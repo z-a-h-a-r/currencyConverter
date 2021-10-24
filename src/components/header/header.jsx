@@ -22,7 +22,8 @@ const Header = () => {
 				<div className={styles.inner}>
 					<div className={styles.logo}>currency converter</div>
 					<div className={styles.baseCurrencyWrap}>
-						<span> Base currency</span>
+						<span>Base currency</span>
+
 						<Select
 							onItemClick={currency => {
 								dispatch(setBaseCurrency(currency))

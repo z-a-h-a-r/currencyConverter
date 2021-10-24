@@ -2,7 +2,6 @@
 // IMPORTS
 import './styles/zeroing.scss'
 import './styles/style.scss'
-import './styles/commonStyles.scss'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeApp } from './reducers/appReducer'
@@ -15,23 +14,21 @@ import Main from './pages/main/main'
 // Component
 
 const App = props => {
+	// variables
 	const dispatch = useDispatch()
 
 	// ====================================================
 	// state
-
 	const initialized = useSelector(state => state.app.initialized)
 
 	// ====================================================
 	// Side effects
-
 	useEffect(() => {
 		dispatch(initializeApp())
 	}, [])
 
 	// ====================================================
 	// JSX
-
 	return !initialized ? (
 		<Loading />
 	) : (
@@ -47,5 +44,4 @@ const App = props => {
 
 // ====================================================
 // Exports
-
 export default React.memo(App)

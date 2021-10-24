@@ -13,6 +13,7 @@ import { useHistory } from 'react-router'
 // Component
 
 const Convert = () => {
+	// Variables
 	const dispatch = useDispatch()
 	const history = useHistory()
 	let [from, setFrom] = useState('USD')
@@ -20,6 +21,14 @@ const Convert = () => {
 	let [fromForm, setFromForm] = useState(1)
 	let parsedUrl = queryString.parse(history.location.search.substr(1))
 
+	// ====================================================
+	// State
+	const conversionRate = useSelector(
+		state => state.data.conversionResult.conversion_rate
+	)
+
+	// ====================================================
+	// Side effects
 	useEffect(() => {
 		let fromCount = parsedUrl.fromCount
 		let firstCurrency = parsedUrl.firstCurrency
@@ -37,16 +46,17 @@ const Convert = () => {
 
 		dispatch(convertCurrency(from, to))
 	}, [])
+
+	// ====================================================
+	// Functions
 	const pushDataTUrl = () => {
 		history.push({
 			pathname: `/`,
 			search: `firstCurrency=${from}&secondCurrency=${to}&fromCount=${fromForm}`,
 		})
 	}
-	const conversionRate = useSelector(
-		state => state.data.conversionResult.conversion_rate
-	)
 
+	// ====================================================
 	// JSX
 	return (
 		<div className={styles.cardsWrap}>

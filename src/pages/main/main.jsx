@@ -13,13 +13,7 @@ import Convert from './convert/convert'
 // Component
 
 const Main = props => {
-	const dispatch = useDispatch()
-
-	const baseCurrency = useSelector(state => state.app.baseCurrency)
-
-	// ====================================================
 	// JSX
-
 	return (
 		<section className={styles.body}>
 			<Convert />
