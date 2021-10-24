@@ -8,5 +8,24 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		.logo {
+			padding: 0px 10px;
+			background: #222222;
+			border-radius: 6px;
+			height: 35px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.baseCurrencyWrap {
+			display: flex;
+			align-items: center;
+			background: #161616;
+			border-radius: 6px;
+			& span {
+				margin-right: 10px;
+			}
+		}
 	}
 }

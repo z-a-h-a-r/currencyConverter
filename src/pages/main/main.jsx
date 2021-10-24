@@ -23,16 +23,9 @@ const Main = props => {
 	return (
 		<section className={styles.body}>
 			<Convert />
-			<div>
-				<Select
-					onItemClick={currency => {
-						dispatch(setBaseCurrency(currency))
-						dispatch(getLatest())
-					}}
-					initialCurrency={baseCurrency}
-				/>
+			<div className={styles.currencyList}>
+				<CurrencyList />
 			</div>
-			<CurrencyList />
 		</section>
 	)
 }

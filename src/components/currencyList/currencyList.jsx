@@ -101,7 +101,7 @@ const CurrencyList = props => {
 				)}
 			</Formik>
 
-			<span className={styles.s}>1 {baseCurrency} =</span>
+			<div className={styles.baseCurrency}>1 {baseCurrency} =</div>
 			<div className={styles.list}>
 				{searchResult.length !== 0 ? (
 					<>
