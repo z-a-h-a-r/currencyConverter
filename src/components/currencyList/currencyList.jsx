@@ -67,11 +67,9 @@ const CurrencyList = props => {
 					<div className={styles.list}>
 						{searchResult.map(item => (
 							<div key={item.name} className={styles.card}>
-								<span>{item.name}</span>
+								<span className={styles.name}>{item.name}</span>
 								<div>
-									1<span className={styles.currency}>{baseCurrency}</span>{' '}
-									{' = '}
-									{item.currency}
+									<span className={styles.name}>{item.currency}</span>
 									<span className={styles.currency}>{item.name}</span>
 								</div>
 							</div>
@@ -91,9 +89,9 @@ const CurrencyList = props => {
 				<div className={styles.list}>
 					{Object.keys(latest).map(item => (
 						<div key={item} className={styles.card}>
-							<span>{item}</span>
+							<span className={styles.name}>{item}</span>
 							<div>
-								{latest[item].toFixed(4)}
+								<span className={styles.name}>{latest[item].toFixed(4)}</span>
 								<span className={styles.currency}>{item}</span>
 							</div>
 						</div>

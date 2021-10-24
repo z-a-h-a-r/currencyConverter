@@ -24,8 +24,22 @@
 			align-items: center;
 			background: #161616;
 			border-radius: 6px;
+
 			& span {
 				margin-right: 10px;
+			}
+		}
+	}
+	@media (max-width: 464px) {
+		.logo {
+			padding: 0px 4px;
+			font-size: 10px;
+		}
+	}
+	@media (max-width: 390px) {
+		.baseCurrencyWrap {
+			& span {
+				display: none;
 			}
 		}
 	}

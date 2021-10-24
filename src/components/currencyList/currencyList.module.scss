@@ -1,9 +1,9 @@
 .list {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
 	column-gap: 30px;
 	row-gap: 10px;
 	margin-top: 40px;
+	grid-template-columns: repeat(3, 1fr);
 
 	.card {
 		background: #161616;
@@ -17,6 +17,19 @@
 			font-size: 11px;
 			margin-left: 6px;
 			color: rgb(177, 177, 177);
+		}
+	}
+	@media (max-width: 368px) {
+		.card {
+			.name {
+				font-size: 11px;
+			}
+			.currency {
+				.name {
+					font-size: 11px;
+				}
+				font-size: 10px;
+			}
 		}
 	}
 }
@@ -40,4 +53,15 @@
 	display: flex;
 	justify-content: center;
 	margin-top: 60px;
+}
+
+@media (max-width: 568px) {
+	.list {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (max-width: 300px) {
+	.list {
+		grid-template-columns: repeat(1, 1fr);
+	}
 }
