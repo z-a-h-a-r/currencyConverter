@@ -18,7 +18,7 @@ const Footer = () => {
 							<li>
 								<a
 									href="https://github.com/z-a-h-a-r/currencyConverter"
-									className="link"
+									className={styles.link}
 									target="_blank"
 								>
 									Project Code
@@ -27,7 +27,7 @@ const Footer = () => {
 							<li>
 								<a
 									href="https://github.com/z-a-h-a-r"
-									className="link"
+									className={styles.link}
 									target="_blank"
 								>
 									My GitHub
@@ -41,7 +41,7 @@ const Footer = () => {
 							<li>
 								<a
 									href="https://www.exchangerate-api.com/"
-									className="link"
+									className={styles.link}
 									target="_blank"
 								>
 									exchangerate API
@@ -57,7 +57,7 @@ const Footer = () => {
 								<a
 									target="_blank"
 									href="https://t.me/z_a_h_a_r_74/"
-									className="link"
+									className={styles.link}
 								>
 									telegram
 								</a>

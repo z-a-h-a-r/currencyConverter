@@ -44,6 +44,12 @@
 					}
 				}
 			}
+			.link {
+				color: #fff;
+				&:hover {
+					color: rgb(173, 173, 173);
+				}
+			}
 		}
 	}
 }
