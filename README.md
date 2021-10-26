@@ -1,4 +1,4 @@
-# # Currency converter
+# Currency converter
 ![Main page](https://i.ibb.co/cFhTbd1/screely-1635259244534.png)
 > In this application you can view the current exchange rates  
 > Url address: https://z-a-h-a-r.github.io/currencyConverter/#/
