@@ -7,6 +7,7 @@ import { getCodes, getLatest } from './dataReducer'
 
 const SET_INITIALIZED = 'SET_INITIALIZED'
 const SET_BASE_CURRENCY = 'SET_BASE_CURRENCY'
+const SET_LANGUAGE = 'SET_LANGUAGE'
 
 // ====================================================
 // Initial state
@@ -14,6 +15,7 @@ const SET_BASE_CURRENCY = 'SET_BASE_CURRENCY'
 let initialState = {
 	initialized: false,
 	baseCurrency: 'USD',
+	language: 'eng',
 }
 
 // ====================================================
@@ -33,6 +35,12 @@ const appReducer = (state = initialState, action) => {
 				baseCurrency: action.payload,
 			}
 
+		case SET_LANGUAGE:
+			return {
+				...state,
+				language: action.payload,
+			}
+
 		default:
 			return state
 	}
@@ -49,6 +57,10 @@ export const setBaseCurrency = payload => ({
 	type: SET_BASE_CURRENCY,
 	payload,
 })
+export const setLanguage = payload => ({
+	type: SET_LANGUAGE,
+	payload,
+})
 
 // ====================================================
 // Thunks
@@ -56,8 +68,21 @@ export const setBaseCurrency = payload => ({
 export const initializeApp = () => {
 	return async dispatch => {
 		new Promise((resolve, reject) => {
-			resolve(dispatch(getLatest('USD')))
+			const language = navigator.language
+
+			dispatch(setLanguage(language))
+
+			if (language === 'ru') {
+				resolve(dispatch(setBaseCurrency('RUB')))
+			} else {
+				resolve(dispatch(setBaseCurrency('USD')))
+			}
 		})
+			.then(() => {
+				return new Promise((resolve, reject) => {
+					resolve(dispatch(getLatest(navigator.language)))
+				})
+			})
 			.then(() => {
 				return new Promise((resolve, reject) => {
 					resolve(dispatch(getCodes()))

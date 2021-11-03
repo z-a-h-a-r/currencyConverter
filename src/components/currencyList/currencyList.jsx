@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setSearchResult } from '../../reducers/dataReducer'
 import Alert from '../alert/alert'
 import Search from '../search/search'
+import { useHistory } from 'react-router'
+import { NavLink } from 'react-router-dom'
 
 // ====================================================
 // Component
@@ -15,6 +17,7 @@ const CurrencyList = props => {
 	// Variables
 
 	const dispatch = useDispatch()
+	const history = useHistory()
 	const [isNotFound, setIsNotFound] = useState(false)
 
 	// ====================================================
@@ -59,8 +62,18 @@ const CurrencyList = props => {
 					dispatch(setSearchResult(suitableElements))
 				}}
 			/>
-
-			<div className={styles.baseCurrency}>1 {baseCurrency} =</div>
+			<div className={styles.flex}>
+				<div className={styles.bigCard}>1 {baseCurrency} =</div>
+				{history.location.pathname !== '/all' ? (
+					<NavLink to={'/all'} className={styles.bigCard}>
+						open currency exchange rates to the full page
+					</NavLink>
+				) : (
+					<NavLink to={'/'} className={styles.bigCard}>
+						return to main page
+					</NavLink>
+				)}
+			</div>
 
 			{searchResult.length !== 0 ? (
 				<>
